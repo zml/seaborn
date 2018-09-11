@@ -420,6 +420,14 @@ def _plot_unit_points(ax, x, data, color, err_kws, **kwargs):
         ax.plot(x, data.T, "o", color=color, alpha=0.5, markersize=4,
                 label="_nolegend_", **err_kws)
 
+# SG
+def _plot_range_band(*args, central_data=None, ci=None, data=None, **kwargs):
+    upper = data.max(axis=0)
+    lower = data.min(axis=0)
+    #import pdb; pdb.set_trace()
+    ci = np.asarray((lower, upper))
+    kwargs.update({"central_data": central_data, "ci": ci, "data": data})
+    _plot_ci_band(*args, **kwargs)
 
 def _plot_boot_kde(ax, x, boot_data, color, **kwargs):
     """Plot the kernal density estimate of the bootstrap distribution."""
